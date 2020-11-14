@@ -1,0 +1,6 @@
+{
+  "type": "sqlite",
+  "database": "database.sqlite",
+  "entities": ["src/components/**/Model{.ts,.js}"],
+  "migrations": ["src/components/**/migrations/*{.ts,.js}"]
+}
