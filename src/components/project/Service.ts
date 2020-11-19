@@ -37,7 +37,9 @@ export default class ProjectService {
       name: string 
     }[];
   }) {
+    
     await TechnologyService.update(id, techs);
+
     const projectToUpdate = await ProjectService.findById(id);
 
     return getRepository(ProjectModel).save({ ...projectToUpdate, ...rest });

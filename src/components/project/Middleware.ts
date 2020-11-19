@@ -20,6 +20,22 @@ export default class ProjectMiddleware {
 
     next();
   }
+  public static async convertToText(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    console.log("Im here")
+    const primitiveTechs = req.body.techs;
+    if (Array.isArray(primitiveTechs)) {
+      const formatedTechs = primitiveTechs.map((tech) => {
+        return tech.name
+      });
+      console.log(formatedTechs)
+      req.body.techs = formatedTechs;
+    }
+    next();
+  }
   public static async filterBody(
     req: Request,
     res: Response,
