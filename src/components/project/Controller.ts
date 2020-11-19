@@ -5,7 +5,7 @@ import { ProjectService } from "./index";
 export default class ProjectController {
   public static async create(req: Request, res: Response) {
     return ProjectService.create(req.body)
-      .then(() => res.status(201).send())
+      .then((rs) => res.status(201).json(rs).send())
       .catch((err) => res.status(400).json({ error: err.message }));
   }
 

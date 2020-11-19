@@ -1,4 +1,5 @@
 import { getRepository } from "typeorm";
+import { TechnologyService } from "../technology";
 
 import { ProjectModel } from "./index";
 
@@ -10,8 +11,7 @@ export default class ProjectService {
   }) {
     const projectRepository = getRepository(ProjectModel);
     const toSave = projectRepository.create(project);
-
-    await projectRepository.save(toSave);
+    return await projectRepository.save(toSave)
   }
 
   public static async findAll() {
@@ -21,19 +21,23 @@ export default class ProjectService {
   public static async findById(id: string) {
     return getRepository(ProjectModel).findOneOrFail(
       { id },
-      { relations: ["techs"] }
-    );
+      { relations: ["techs"] },
+    )
   }
 
   public static async update({
     id,
+    techs,
     ...rest
   }: {
-    id: string;
+    id: string
     title: string;
     url: string;
-    techs: { name: string }[];
+    techs: {
+      name: string 
+    }[];
   }) {
+    await TechnologyService.update(id, techs);
     const projectToUpdate = await ProjectService.findById(id);
 
     return getRepository(ProjectModel).save({ ...projectToUpdate, ...rest });
