@@ -27,11 +27,5 @@ export default class TechnologyService {
       return !union.some( (technology: { name: string; }) => technology.name === intersection.name);
     });
     await Promise.all(changed.map(async toUpdate => await technologyRepository.insert({project: id, name: toUpdate.name})))
-    
-    console.log(unsend)
-    // console.log(techs);
-    // console.log(union);
-    console.log(changed);
-    // getRepository(TechnologyModel).save(...changed);
   }
 }
